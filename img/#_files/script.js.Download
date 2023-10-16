@@ -1,0 +1,429 @@
+
+let allPokemons = [];
+let allFromApi = [];
+let allFromApiSpecies = [];
+let allFromApiChain = [];
+let allPokemonDetails = [];
+let evolution = [];
+let timerStartSec = 3;
+async function loadPokemons() {
+    let count = 0;
+    loadScreen(count);
+    let url = "https://pokeapi.co/api/v2/pokemon?limit=20&offset=0"
+    let response = await fetch(url);
+    let responseAsJS = await response.json();
+    allPokemons.push(await responseAsJS);
+    await loadPokemonsFunctions();
+    count++;
+    console.log(count);
+    loadScreen(count)
+};
+
+async function loadPokemonsFunctions() {
+    await loadAllfromAPI();
+    await loadPokemonSpecies();
+    await loadPokemonChains();
+    await loadPokemonDetails();
+    await renderPokemonCards();
+}
+
+async function loadAllfromAPI() {
+    for (let i = 0; i < allPokemons[0]['results'].length; i++) {
+        if (await allPokemons[0]['results'][i]['url'] && await allPokemons[0]['results'][i]['url'] != null) {
+            let url = await allPokemons[0]['results'][i]['url'];
+            let response = await fetch(url);
+            let responseAsJs = await response.json();
+            allFromApi.push(responseAsJs)
+        } else {
+            console.log("null");
+        }
+    }
+}
+
+async function loadPokemonSpecies() {
+    for (let i = 0; i < allFromApi.length; i++) {
+        let url = allFromApi[i]['species']['url'];
+        let response = await fetch(url);
+        let responseAsJs = await response.json();
+        allFromApiSpecies.push(responseAsJs)
+    }
+}
+
+async function loadPokemonChains() {
+    for (let i = 0; i < allFromApiSpecies.length; i++) {
+        if (allFromApiSpecies[i]['evolution_chain']) {
+            let url = allFromApiSpecies[i]['evolution_chain']['url'];
+            let response = await fetch(url);
+            let responseAsJs = await response.json();
+            allFromApiChain.push(responseAsJs);
+
+        } else {
+            console.log("null");
+        }
+    }
+}
+
+async function loadPokemonDetails() {
+    for (let i = 0; i < allFromApi.length; i++) {
+        let pokemonUrl = allPokemons[0]['results'][i]['url'];
+        allPokemonDetails.push({ "Liked": "unliked", "Evolutions": getEvolves(i), "About": await getPokemonAbout(i), "species": getPokemonSpeciesUrl(i), "stats": [{ "name": getPokemonStatsName(i), "base_stat": getPokemonStatsBaseStats(i) }], "weight": getPokemonWeight(i), "height": getPokemonHeight(i), "types": getPokemonTypes(i), "name": getPokemonName(i), "url": pokemonUrl, "Portrait": getPokemonPortrait(i), "smallImage": getPokemonSmallImages(i), "ID": getPokemonID(i) })
+        getEvolvesImages(i)
+    }
+}
+
+function getPokemonName(i) {
+    return allFromApi[i]['name'];
+}
+
+
+
+function getPokemonSmallImages(i) {
+    return allFromApi[i]['sprites']['front_shiny'];
+}
+
+function getPokemonID(i) {
+    return allFromApi[i]['id'];
+}
+
+function getPokemonTypes(i) {
+    let pokemonTypes = allFromApi[i]['types'];
+    let pokemonTypeArray = [];
+    for (let i = 0; i < pokemonTypes.length; i++) {
+        let pokemonType = pokemonTypes[i]['type']['name'];
+        pokemonTypeArray.push(pokemonType);
+    }
+    return pokemonTypeArray;
+}
+
+function getPokemonPortrait(i) {
+    let pokemonPortrait = allFromApi[i]['sprites']['other']['official-artwork']['front_default'];
+    return pokemonPortrait;
+}
+
+function getPokemonHeight(i) {
+    let height = allFromApi[i]['height']
+    return height
+}
+
+function getPokemonWeight(i) {
+    let weight = allFromApi[i]['weight']
+    return weight
+}
+
+function getPokemonStatsName(i) {
+    let pokemonStatsName = [];
+    for (let j = 0; j < allFromApi[i]['stats'].length; j++) {
+        let pokemonStatName = allFromApi[i]['stats'][j]['stat']['name'];
+        pokemonStatsName.push(pokemonStatName);
+
+    }
+    return pokemonStatsName;
+}
+
+function getPokemonStatsBaseStats(i) {
+    let pokemonStatsValues = [];
+    for (let j = 0; j < allFromApi[i]['stats'].length; j++) {
+        let pokemonStatBaseStat = allFromApi[i]['stats'][j]['base_stat'];
+        pokemonStatsValues.push(pokemonStatBaseStat);
+    }
+    return pokemonStatsValues;
+}
+
+
+function getPokemonSpeciesUrl(i) {
+    return allFromApi[i]['species']['url'];
+}
+
+async function getPokemonAbout(i) {
+    let about = await allFromApiSpecies[i]['flavor_text_entries'][10]['flavor_text'];
+    await escapeRegex(about);
+    return about;
+
+}
+
+
+function getEvolves(i) {
+    if (allFromApiChain[i] && allFromApiChain[i]['chain']['evolves_to'].length > 0 && allFromApiChain[i]['chain']['evolves_to'][0]['species']) {
+        let baseForm = allFromApiChain[i]['chain']['species'].name
+        let firstEvolve = allFromApiChain[i]['chain']['evolves_to'][0]['species'].name;
+        let baseFormImg = getEvolvesImages(baseForm);
+        let firstEvolveImage = getEvolvesImages(firstEvolve);
+        if (allFromApiChain[i]['chain']['evolves_to'][0]['evolves_to'][0]) {
+            let secondEvolve = allFromApiChain[i]['chain']['evolves_to'][0]['evolves_to'][0]['species'].name
+            let secondEvolveImage = getEvolvesImages(secondEvolve);
+            return [{ "baseForm": baseForm, "baseFormImg": baseFormImg }, { "firstEvole": firstEvolve, "firstEvolveImg": firstEvolveImage }, { "secondEvolve": secondEvolve, "secondEvolveImg": secondEvolveImage }]
+        } else { return [{ "baseForm": baseForm, "baseFormImg": baseFormImg }, { "firstEvole": firstEvolve, "firstEvolveImg": firstEvolveImage }] }
+    } else {
+        return null;
+    }
+}
+
+
+function getEvolvesImages(name) {
+    for (let j = 0; j < allFromApi.length; j++) {
+        if (allFromApi[j].name.includes(`${name}`)) {
+            return allFromApi[j]['sprites']['front_shiny'];
+        }
+    }
+}
+
+async function getLikedImg(i) {
+    if (allPokemonDetails[i].Liked === "unliked") {
+        document.getElementById(`liked-${allPokemonDetails[i].name}`).src = "img/favorite-3-16.png";
+    } else {
+        document.getElementById(`liked-${allPokemonDetails[i].name}`).src = "img/favorite-2-16.png";
+    }
+}
+
+
+function loadScreen(count) {
+
+    let load_screen = document.getElementById("load_screen");
+    if (count == 1) {
+        document.body.removeChild(load_screen)
+    };
+};
+
+
+function countdown() {
+    timerStartSec = 3;
+    let timer = setInterval(function () {
+        document.getElementById("timer").innerHTML = `${timerStartSec} Seconds.`;
+        timerStartSec--;
+        if (timerStartSec == 2) {
+            document.getElementById("timer").innerHTML = `${timerStartSec} Seconds..`;
+        }
+        if (timerStartSec == 1) {
+            document.getElementById("timer").innerHTML = `${timerStartSec} Seconds...`;
+        }
+        if (timerStartSec == 0) {
+            clearInterval(timer);
+        }
+    }
+        , 800);
+}
+
+
+async function setLiked(i) {
+    if (allPokemonDetails[i].Liked === "unliked") {
+        allPokemonDetails[i].Liked = "liked";
+        getLikedImg(i);
+
+    } else {
+        allPokemonDetails[i].Liked = "unliked";
+        getLikedImg(i);
+    }
+}
+
+
+async function escapeRegex(string) {
+    return string.replace(/[\|&;\$%@"<>\(\)\+,]/g, "");
+}
+
+
+function setUpperCase(pokemon) {
+    return pokemon = pokemon.charAt(0).toUpperCase() + pokemon.slice(1);
+}
+
+
+async function loadSearch() {
+    let input = document.getElementById('search').value.toLowerCase();
+    let list = document.getElementById('pokemonCards');
+    list.innerHTML = "";
+    let count = 0;
+    search(input, list, count);
+}
+
+
+function search(input, list, count) {
+    for (let i = 0; i < allPokemonDetails.length; i++) {
+        if (allPokemonDetails[i].name.toLowerCase().includes(input) == false) {
+            count++
+        }
+        if (allPokemonDetails[i].name.toLowerCase().includes(input)) {
+            list.innerHTML += templateRenderPokemonCards(i);
+            renderPokemonTypes(i);
+            getLikedImg(i);
+
+        }
+    }
+    if (count >= allPokemonDetails.length) {
+        list.innerHTML = `<div class="d-flex flex-column">
+        <span class="d-flex color-white"><h4>Unfortunately no hits</h4></span><img src="./img/searchFailed.png"></div>`
+    }
+}
+//RENDER
+
+async function renderPokemonCards() {
+
+    let pokemonCards = document.getElementById('pokemonCards');
+    pokemonCards.innerHTML = "";
+    for (let i = 0; i < allPokemonDetails.length; i++) {
+        pokemonCards.innerHTML += templateRenderPokemonCards(i);
+        renderPokemonTypes(i);
+        getLikedImg(i)
+    }
+
+}
+
+function renderLikedPokemons() {
+    let pokemonCards = document.getElementById('pokemonCards');
+    pokemonCards.innerHTML = "";
+    let count = 0;
+    for (let i = 0; i < allPokemonDetails.length; i++) {
+        if (allPokemonDetails[i].Liked === "liked") {
+            count++;
+            console.log(count);
+            pokemonCards.innerHTML += templateRenderLikedPokemonCards(i);
+            getLikedImg(i);
+        }
+    } if (count == 0) {
+        i = allPokemonDetails.length;
+        pokemonCards.innerHTML = `<div class="flex-column no-favorites align-items-center d-flex justify-content-center"><h2>No selected favorites , please choose your Favorite Pokemon's</h2><h3>Automatic back to home in <span id="timer"> 3 Seconds. </span</h3></div>`
+        countdown();
+        setTimeout(() => {
+            renderPokemonCards();
+        }, 3000);
+    }
+}
+
+
+async function renderPokemonTypes(i) {
+    document.getElementById(`type-${allPokemonDetails[i].name}`).innerHTML = "";
+    for (j = 0; j < allPokemonDetails[i].types.length; j++) {
+        let type = allPokemonDetails[i].types[j];
+        document.getElementById(`type-${allPokemonDetails[i].name}`).innerHTML += `<span class="type-${type} d-flex ms-1 pe-3 ps-3 me-1"> ${setUpperCase(type)} </span>`
+
+    }
+}
+
+function renderModalPokemonTpes(i) {
+    document.getElementById(`modal-type`).innerHTML = "";
+    for (j = 0; j < allPokemonDetails[i].types.length; j++) {
+        let type = allPokemonDetails[i].types[j];
+        document.getElementById(`modal-type`).innerHTML += `<span class="type-${type} d-flex ms-1 pe-3 ps-3 me-1"> ${setUpperCase(type)} </span>`
+
+    }
+}
+
+
+//TEMPLATES
+function templateRenderPokemonCards(i) {
+    return /*html*/`
+    <button onclick="renderModal(${i})"class="btn-none bg-transparent" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="p-2 bg-transparent"><div class="card" style="width: 18rem;" id="test">
+        <div class="d-flex flex-grow-1 justify-content-end me-3"><span class="pokemon-id">#${allPokemonDetails[i].ID}</span></div>
+        <img  class="pokemon-portrait" src="${allPokemonDetails[i].Portrait}" class="card-img-top" loading="lazy">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title d-flex"><b>${setUpperCase(allPokemonDetails[i].name)}</b></h5>
+          <img id="liked-${allPokemonDetails[i].name}" onclick="setLiked(${i})" class="favorite d-flex" src="">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="d-flex justify-content-between"><span class="d-flex me-3"><b>Type:</b></span><span class="d-flex flex-grow-1 justify-content-end"id="type-${allPokemonDetails[i].name}"></span></span></li>
+        </ul>
+            <div class="max-height card-body">
+                <span class="d-flex">
+                    <span class="d-flex"><b>About:</b></span>
+                    <span class="d-flex ms-3">${allPokemonDetails[i].About.replace(`/\""`)}</span>
+                </span>
+        </div>
+        </div></div>
+        </button>
+        `
+
+
+}
+
+function templateRenderLikedPokemonCards(i) {
+    return /*html*/`
+        <div class="p-2 bg-transparent"><div class="card" style="width: 18rem;">
+        <div class="d-flex flex-grow-1 justify-content-end me-3"><span class="pokemon-id">#${allPokemonDetails[i].ID}</span></div>
+        <img  class="pokemon-portrait" src="${allPokemonDetails[i].Portrait}" class="card-img-top" loading="lazy">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title d-flex"><b>${setUpperCase(allPokemonDetails[i].name)}</b></h5>
+          <img id="liked-${allPokemonDetails[i].name}" onclick="setLiked(${i});renderLikedPokemons()" class="favorite d-flex" src="">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="d-flex justify-content-between"><span class="d-flex me-3"><b>Type:</b></span><span class="d-flex flex-grow-1 justify-content-end"id="type-${allPokemonDetails[i].name}"></span></span></li>
+        </ul>
+            <div class="max-height card-body">
+                <span class="d-flex">
+                    <span class="d-flex"><b>About:</b></span>
+                    <span class="d-flex ms-3">${allPokemonDetails[i].About.replace(`/\""`)}</span>
+                </span>
+        </div>
+        </div></div>
+        `
+}
+
+
+function renderModal(i) {
+    document.getElementById('modal-headline-name').innerHTML = `<h1>${setUpperCase(allPokemonDetails[i].name)}</h1>`
+    document.getElementById('modal-portrait-img').src = allPokemonDetails[i].Portrait;
+    document.getElementById('modal-body').innerHTML =/*html*/`
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><span>${setUpperCase(allPokemonDetails[i].name)}</span></td>
+        </tr>
+        <tr>
+            <td>ID:</td>
+            <td><span>#${allPokemonDetails[i].ID}</span></td>
+        </tr>
+        <tr>
+            <td>Type:</td>
+            <td><span class="d-flex" id="modal-type"></span></td>
+        </tr>
+        <tr>
+            <td>Weight:</td>
+            <td><span class="d-flex"></span>${(+allPokemonDetails[i].weight / 10).toFixed(2)} kg</td>
+        </tr>
+        <tr>
+            <td>Height:</td>
+            <td><span class="d-flex"></span>${(+allPokemonDetails[i].height / 10).toFixed(2)} m</td>
+        </tr>
+
+
+    </table> 
+    `
+    document.getElementById('modal-footer').innerHTML = /*html*/`
+               <div class="d-flex justify-content-between">
+              <span class="d-flex me-5">Evolutions:</span>
+              <div class="d-flex justify-content-between evolutions" id="evolutions">
+            </div>
+    
+    `
+
+    renderModalPokemonTpes(i);
+    renderModalEvolutions(i);
+}
+
+function renderModalEvolutions(i) {
+    for (let j = 0; j < allPokemonDetails[i].Evolutions.length; j++) {
+        if (allPokemonDetails[i].Evolutions[j]['baseForm']) {
+            document.getElementById('evolutions').innerHTML += /*html*/`
+             <div class="d-flex flex-column">
+        <div class="d-flex" id="modal-evolve-base-form"><b>${allPokemonDetails[i].Evolutions[j]['baseForm']}</b></div>
+        <img class="d-flex" id="modal-evolve-base-form-img" src=${allPokemonDetails[i].Evolutions[j]['baseFormImg']}>
+        </div>`
+        }
+        if (allPokemonDetails[i].Evolutions[j]['firstEvole']) {
+            document.getElementById('evolutions').innerHTML += /*html*/`
+             <div class="d-flex flex-column">
+        <div class="d-flex"  class="d-flex" id="modal-evolve-second-form"><b>${allPokemonDetails[i].Evolutions[j]['firstEvole']}</b></div>
+        <img class="d-flex"  class="d-flex" id="modal-evolve-second-form-img" src=${allPokemonDetails[i].Evolutions[j]['firstEvolveImg']}>
+        </div>`
+        }
+        if (allPokemonDetails[i].Evolutions[j]['secondEvolve']) {
+            document.getElementById('evolutions').innerHTML += /*html*/`
+            <div class="d-flex flex-column align-item-between">
+        <div  class="d-flex" id="modal-evolve-second-form"><b>${allPokemonDetails[i].Evolutions[j]['secondEvolve']}</b></div>
+        <img  class="d-flex" id="modal-evolve-second-form-img" src=${allPokemonDetails[i].Evolutions[j]['secondEvolveImg']}>
+        </div>`
+        }
+    }
+}
+
+
+
+

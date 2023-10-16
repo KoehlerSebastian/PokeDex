@@ -1,0 +1,380 @@
+@font-face {
+    font-family: 'Bree Serif';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./fonts/bree-serif-v17-latin-regular.eot');
+    /* IE9 Compat Modes */
+    src: local(''),
+        url('./fonts/bree-serif-v17-latin-regular.eot?#iefix') format('embedded-opentype'),
+        /* IE6-IE8 */
+        url('./fonts/bree-serif-v17-latin-regular.woff2') format('woff2'),
+        /* Super Modern Browsers */
+        url('./fonts/bree-serif-v17-latin-regular.woff') format('woff'),
+        /* Modern Browsers */
+        url('./fonts/bree-serif-v17-latin-regular.ttf') format('truetype'),
+        /* Safari, Android, iOS */
+        url('./fonts/bree-serif-v17-latin-regular.svg#BreeSerif') format('svg');
+    /* Legacy iOS */
+}
+
+html{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Bree Serif";
+    background-color: #242f3f;
+
+}
+.btn-none{
+    border: none;
+    outline: none;
+}
+
+.card:hover {
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(170,187,204,1) 0%, rgba(0,212,255,1) 100%);
+
+
+}
+
+.list-group-item{
+    background-color: transparent;
+}
+
+.list-group{
+    background-color: transparent !important;
+}
+.list-group:hover{
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(170,187,204,1) 0%, rgba(0,212,255,1) 100%);
+
+}
+
+.evolution-container{
+    width: 100%
+}
+
+.button-at-liked{
+    display: flex;
+    flex: 1 !important;
+}
+
+.evolutions img{
+    object-fit: contain;
+    width: clamp( 1rem, 20vw, 6rem);
+}
+
+.evolutions b{
+    display: flex;
+    font-size: clamp( 0.5rem, 20vw, 1rem);
+}
+
+.form-select{
+    width: 100% !important;
+}
+
+#modal-portrait-img{
+
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
+}
+
+.border-top{
+    width: 100%;
+}
+
+.btn-width{
+    width: 120px;
+}
+
+.color-white{
+    color: white;
+}
+
+.pokemon-id{
+    font-weight: bold;
+}
+
+.pokemon-portrait {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+
+.max-height {
+    min-height: 200px;
+    max-height: 200px;
+}
+
+.no-favorites{
+    height: calc(100vh - 56px - 8px);
+    color:white;
+}
+.favorite{
+    cursor: pointer;
+object-fit: contain;
+}
+
+.type-normal, .type-Normal{
+    background-color: #a8a878;
+    border-radius: 25px;
+}
+
+.type-psychic, .type-Psycho{
+    background-color: #c00f8b;
+    border-radius: 25px;
+}
+
+.type-bug, .type-Käfer {
+    background-color: #baff9d;
+    border-radius: 25px;
+
+}
+
+.loader-wrapper {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #242f3f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.loader {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    border: 4px solid #Fff;
+    animation: loader 2s infinite ease;
+  }
+
+  @keyframes loader {
+    0% { transform: rotate(0deg);}
+    25% { transform: rotate(180deg);}
+    50% { transform: rotate(180deg);}
+    75% { transform: rotate(360deg);}
+    100% { transform: rotate(360deg);}
+  }
+
+table{
+    width: 100%;
+}
+td{
+    width: 100%;
+}
+
+#modal-stats{
+    width: 60%;
+    flex-direction: column;
+}
+
+
+.type-grass, .type-Pflanze {
+    background-color: #69d33c;
+    border-radius: 25px;
+}
+
+.type-poison, .type-Gift {
+    background-color: #b97fc8;
+    border-radius: 25px;
+}
+
+.type-fire, .type-Feuer {
+    background-color: #dc620c;
+    border-radius: 25px;
+}
+
+.type-water, .type-Wasser {
+    background-color: #6890f0;
+    border-radius: 25px;
+}
+
+
+.type-ghost, .type-Geist {
+    background-color: #705898;
+    border-radius: 25px;
+}
+
+.type-electric, .type-Elektro {
+    background-color: #f8d030;
+    border-radius: 25px;
+}
+
+.type-ice, .type-Eis{
+    background-color: #98d8d8;
+    border-radius: 25px;
+}
+
+.type-steel, .type-Stahl{
+    background-color: #b8b8d0;
+    border-radius: 25px;
+}
+
+.type-dark, .type-Unlicht{
+    background-color: #705848;
+    border-radius: 25px;
+}
+
+.type-fairy, .type-Fee {
+    background-color: #f0b6bc;
+    border-radius: 25px;
+}
+
+.type-rock, .type-Gestein{
+    background-color: #ae9735;
+    border-radius: 25px;
+}
+
+
+.type-fighting, .type-Kampf {
+    background-color: #c03028;
+    border-radius: 25px;
+}
+
+.type-dragon, .type-Drache {
+    background-color: #7038f8;
+    border-radius: 25px;
+}
+
+.type-ground, .type-Boden {
+    background-color: #e0c068;
+    border-radius: 25px;
+
+}
+
+.type-flying, .type-Flug {
+    background-color: #a890f0;
+    border-radius: 25px;
+
+}
+
+.animation{
+    height: 1rem;
+    width: 2px;
+    background-color: #69d33c;
+}
+
+#loadCountPokemons{
+    color: white;
+    margin-left: 2rem;
+}
+
+#input-container{
+    margin: 0 !important;
+    flex-direction: column;
+    display: flex;
+    height: calc(100vh - 40px - 16px);
+    width: 100% !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo{
+    display: flex;
+    justify-content: center;
+    object-fit: contain;
+    max-width: 50vw;
+    min-width: 300px;
+}
+
+#pokemon-value{
+    width: 100%;
+    border: 0;
+    margin-left: 0;
+}
+.pokemon-value{
+    width: 100%!important;
+    border: 0!important;
+    margin-left: 0!important;
+}
+
+
+
+.input-size{
+    width: 100%!important;
+    border: 0!important;
+    margin-left: 0!important;
+}
+
+#inputGroup-sizing-default{
+    border: 0;
+    border-bottom: 0.5px solid lightgray;
+    margin-left: 0;
+
+}
+
+#valueSubmitButton{
+    width: 100% !important;
+    border-top-right-radius: 0px !important;
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin: 0;
+}
+
+.input-group-text{
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    outline: 0;
+    box-shadow: none;
+}
+
+.input-group{
+    border: 2px solid #ffcc03;
+    border-radius: 7px;
+    max-width: 50vw;
+    min-width: 300px;
+
+}
+.input-group:active{
+outline: none !important;
+
+}
+
+.input-failure::placeholder{
+    color:red !important;
+    opacity: 1;
+}
+
+.form-select{
+    border-radius: 0 !important;
+    border-top-left-radius: 5px !important;
+    border-top-right-radius: 5px !important;
+}
+
+.sticky-bottom{
+    display: flex;
+    justify-content: bottom;
+    height: 50px;
+}
+
+
+.icon{
+    object-fit: contain;
+    height: 32px;
+    
+}
+
+.bounce2 {
+    animation: bounce2 2s ease infinite;
+  }
+  @keyframes bounce2 {
+    50%, 80%, 100% {transform: translateY(0);}
+    0% {transform: translateX(-30px);}
+    5% {transform: rotateZ(90deg)};
+    10% {transform: translateY(-5px);}
+    15%{ transform: rotateZ(180deg);}
+    20% {transform: translateY(0px);}
+    25%{ transform: rotateZ(270deg);}
+    15% {transform: translateY(-5px);}
+    40% {transform: translateY(-30px);}
+  }

@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://127.0.0.1:5500/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <script src="./#_files/bootstrap.bundle.min.js.Download" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+  
+  <title>PokedexV2</title>
+
+<style type="text/css">
+@font-face {
+  font-weight: 400;
+  font-style:  normal;
+  font-family: 'Circular-Loom';
+
+  src: url('https://cdn.loom.com/assets/fonts/circular/CircularXXWeb-Book-cd7d2bcec649b1243839a15d5eb8f0a3.woff2') format('woff2');
+}
+
+@font-face {
+  font-weight: 500;
+  font-style:  normal;
+  font-family: 'Circular-Loom';
+
+  src: url('https://cdn.loom.com/assets/fonts/circular/CircularXXWeb-Medium-d74eac43c78bd5852478998ce63dceb3.woff2') format('woff2');
+}
+
+@font-face {
+  font-weight: 700;
+  font-style:  normal;
+  font-family: 'Circular-Loom';
+
+  src: url('https://cdn.loom.com/assets/fonts/circular/CircularXXWeb-Bold-83b8ceaf77f49c7cffa44107561909e4.woff2') format('woff2');
+}
+
+@font-face {
+  font-weight: 900;
+  font-style:  normal;
+  font-family: 'Circular-Loom';
+
+  src: url('https://cdn.loom.com/assets/fonts/circular/CircularXXWeb-Black-bf067ecb8aa777ceb6df7d72226febca.woff2') format('woff2');
+}</style><link href="./#_files/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous"><link rel="stylesheet" href="./#_files/style.css"></head>
+
+<body onload="loadPokemons();" cz-shortcut-listen="true" class="modal-open" style="overflow: hidden; padding-right: 17px;">
+  
+  <!-- Modal -->
+  <div id="modales">
+    <div class="modal fade show" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog" style="display: block; padding-left: 0px;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header flex-column">
+            <div class="flex-column">
+              <div id="modal-headline-name"><h1>Venusaur</h1></div>
+            </div>
+            <div class="d-flex modal-title justify-content-center" id="exampleModalLabel"><img id="modal-portrait-img" src="./#_files/3.png"></div>
+          </div>
+          <div class="modal-body" id="modal-body">
+    <table>
+        <tbody><tr>
+            <td>Name:</td>
+            <td><span>Venusaur</span></td>
+        </tr>
+        <tr>
+            <td>ID:</td>
+            <td><span>#3</span></td>
+        </tr>
+        <tr>
+            <td>Type:</td>
+            <td><span class="d-flex" id="modal-type"><span class="type-grass d-flex ms-1 pe-3 ps-3 me-1"> Grass </span><span class="type-poison d-flex ms-1 pe-3 ps-3 me-1"> Poison </span></span></td>
+        </tr>
+        <tr>
+            <td>Weight:</td>
+            <td><span class="d-flex"></span>100.00 kg</td>
+        </tr>
+        <tr>
+            <td>Height:</td>
+            <td><span class="d-flex"></span>2.00 m</td>
+        </tr>
+
+
+    </tbody></table> 
+    </div>
+          <div class="modal-footer justify-content-between d-flex" id="modal-footer">
+               <div class="d-flex justify-content-between">
+              <span class="d-flex me-5">Evolutions:</span>
+              <div class="d-flex justify-content-between evolutions" id="evolutions">
+            
+             <div class="d-flex flex-column">
+        <div class="d-flex" id="modal-evolve-base-form"><b>bulbasaur</b></div>
+        <img class="d-flex" id="modal-evolve-base-form-img" src="./#_files/1.png">
+        </div>
+             <div class="d-flex flex-column">
+        <div class="d-flex" id="modal-evolve-second-form"><b>ivysaur</b></div>
+        <img class="d-flex" id="modal-evolve-second-form-img" src="./#_files/2.png">
+        </div>
+            <div class="d-flex flex-column align-item-between">
+        <div class="d-flex" id="modal-evolve-second-form"><b>venusaur</b></div>
+        <img class="d-flex" id="modal-evolve-second-form-img" src="./#_files/3(1).png">
+        </div></div>
+    
+    </div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--BEGINN NAV-->
+  <nav class="navbar navbar-expand-lg bg-info sticky-top container-fluid p-0">
+    <div class="d-flex flex-row container-fluid">
+      <a onclick="renderPokemonCards()" class="navbar-brand" href="http://127.0.0.1:5500/index.html#">Simple PokeDex</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a onclick="renderPokemonCards()" class="nav-link active" aria-current="page" href="http://127.0.0.1:5500/index.html#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a onclick="renderLikedPokemons()" class="nav-link" href="http://127.0.0.1:5500/index.html#">Favorites</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="http://127.0.0.1:5500/index.html#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Laws
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="http://127.0.0.1:5500/index.html#">Impressum</a></li>
+              <li><a class="dropdown-item" href="http://127.0.0.1:5500/index.html#">Data Privacy</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form class="d-flex" role="search" action="http://127.0.0.1:5500/index.html#">
+          <input id="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" oninput="loadSearch()">
+          <button onclick="loadSearch()" class="btn btn-outline-light">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <!--END NAV-->
+  <div class="container-fluid d-flex justify-content-center" id="mainPage">
+
+    <div class="d-flex flex-row mb-3 flex-wrap justify-content-center" id="pokemonCards">
+    <button onclick="renderModal(0)" class="btn-none bg-transparent" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="p-2 bg-transparent"><div class="card" style="width: 18rem;" id="test">
+        <div class="d-flex flex-grow-1 justify-content-end me-3"><span class="pokemon-id">#1</span></div>
+        <img class="pokemon-portrait" src="./#_files/1(1).png" loading="lazy">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title d-flex"><b>Bulbasaur</b></h5>
+          <img id="liked-bulbasaur" onclick="setLiked(0)" class="favorite d-flex" src="./#_files/favorite-3-16.png">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="d-flex justify-content-between"><span class="d-flex me-3"><b>Type:</b></span><span class="d-flex flex-grow-1 justify-content-end" id="type-bulbasaur"><span class="type-grass d-flex ms-1 pe-3 ps-3 me-1"> Grass </span><span class="type-poison d-flex ms-1 pe-3 ps-3 me-1"> Poison </span></span></span></li>
+        </ul>
+            <div class="max-height card-body">
+                <span class="d-flex">
+                    <span class="d-flex"><b>About:</b></span>
+                    <span class="d-flex ms-3">A strange seed was planted on its back at
+birth. The plant sprouts and grows with
+this POKéMON.</span>
+                </span>
+        </div>
+        </div></div>
+        </button>
+        
+    <button onclick="renderModal(1)" class="btn-none bg-transparent" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="p-2 bg-transparent"><div class="card" style="width: 18rem;" id="test">
+        <div class="d-flex flex-grow-1 justify-content-end me-3"><span class="pokemon-id">#2</span></div>
+        <img class="pokemon-portrait" src="./#_files/2(1).png" loading="lazy">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title d-flex"><b>Ivysaur</b></h5>
+          <img id="liked-ivysaur" onclick="setLiked(1)" class="favorite d-flex" src="./#_files/favorite-3-16.png">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="d-flex justify-content-between"><span class="d-flex me-3"><b>Type:</b></span><span class="d-flex flex-grow-1 justify-content-end" id="type-ivysaur"><span class="type-grass d-flex ms-1 pe-3 ps-3 me-1"> Grass </span><span class="type-poison d-flex ms-1 pe-3 ps-3 me-1"> Poison </span></span></span></li>
+        </ul>
+            <div class="max-height card-body">
+                <span class="d-flex">
+                    <span class="d-flex"><b>About:</b></span>
+                    <span class="d-flex ms-3">When the bulb on its back grows large, it
+appears to lose the ability to stand on
+its hind legs.</span>
+                </span>
+        </div>
+        </div></div>
+        </button>
+        
+    <button onclick="renderModal(2)" class="btn-none bg-transparent" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="p-2 bg-transparent"><div class="card" style="width: 18rem;" id="test">
+        <div class="d-flex flex-grow-1 justify-content-end me-3"><span class="pokemon-id">#3</span></div>
+        <img class="pokemon-portrait" src="./#_files/3.png" loading="lazy">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title d-flex"><b>Venusaur</b></h5>
+          <img id="liked-venusaur" onclick="setLiked(2)" class="favorite d-flex" src="./#_files/favorite-3-16.png">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="d-flex justify-content-between"><span class="d-flex me-3"><b>Type:</b></span><span class="d-flex flex-grow-1 justify-content-end" id="type-venusaur"><span class="type-grass d-flex ms-1 pe-3 ps-3 me-1"> Grass </span><span class="type-poison d-flex ms-1 pe-3 ps-3 me-1"> Poison </span></span></span></li>
+        </ul>
+            <div class="max-height card-body">
+                <span class="d-flex">
+                    <span class="d-flex"><b>About:</b></span>
+                    <span class="d-flex ms-3">Its plant blooms when it is absorbing
+solar energy. It stays on the move to
+seek sunlight.</span>
+                </span>
+        </div>
+        </div></div>
+        </button>
+        
+    <button onclick="renderModal(3)" class="btn-none bg-transparent" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="p-2 bg-transparent"><div class="card" style="width: 18rem;" id="test">
+        <div class="d-flex flex-grow-1 justify-content-end me-3"><span class="pokemon-id">#4</span></div>
+        <img class="pokemon-portrait" src="./#_files/4.png" loading="lazy">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title d-flex"><b>Charmander</b></h5>
+          <img id="liked-charmander" onclick="setLiked(3)" class="favorite d-flex" src="./#_files/favorite-3-16.png">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="d-flex justify-content-between"><span class="d-flex me-3"><b>Type:</b></span><span class="d-flex flex-grow-1 justify-content-end" id="type-charmander"><span class="type-fire d-flex ms-1 pe-3 ps-3 me-1"> Fire </span></span></span></li>
+        </ul>
+            <div class="max-height card-body">
+                <span class="d-flex">
+                    <span class="d-flex"><b>About:</b></span>
+                    <span class="d-flex ms-3">It has a preference for hot things.
+When it rains, steam is said to spout from
+the tip of its tail.</span>
+                </span>
+        </div>
+        </div></div>
+        </button>
+        
+    <button onclick="renderModal(4)" class="btn-none bg-transparent" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="p-2 bg-transparent"><div class="card" style="width: 18rem;" id="test">
+        <div class="d-flex flex-grow-1 justify-content-end me-3"><span class="pokemon-id">#5</span></div>
+        <img class="pokemon-portrait" src="./#_files/5.png" loading="lazy">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title d-flex"><b>Charmeleon</b></h5>
+          <img id="liked-charmeleon" onclick="setLiked(4)" class="favorite d-flex" src="./#_files/favorite-3-16.png">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="d-flex justify-content-between"><span class="d-flex me-3"><b>Type:</b></span><span class="d-flex flex-grow-1 justify-content-end" id="type-charmeleon"><span class="type-fire d-flex ms-1 pe-3 ps-3 me-1"> Fire </span></span></span></li>
+        </ul>
+            <div class="max-height card-body">
+                <span class="d-flex">
+                    <span class="d-flex"><b>About:</b></span>
+                    <span class="d-flex ms-3">When it swings its burning tail, it
+elevates the air temperature to 
+unbearably high levels.</span>
+                </span>
+        </div>
+        </div></div>
+        </button>
+        
+    <button onclick="renderModal(5)" class="btn-none bg-transparent" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="p-2 bg-transparent"><div class="card" style="width: 18rem;" id="test">
+        <div class="d-flex flex-grow-1 justify-content-end me-3"><span class="pokemon-id">#6</span></div>
+        <img class="pokemon-portrait" src="./#_files/6.png" loading="lazy">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title d-flex"><b>Charizard</b></h5>
+          <img id="liked-charizard" onclick="setLiked(5)" class="favorite d-flex" src="./#_files/favorite-3-16.png">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="d-flex justify-content-between"><span class="d-flex me-3"><b>Type:</b></span><span class="d-flex flex-grow-1 justify-content-end" id="type-charizard"><span class="type-fire d-flex ms-1 pe-3 ps-3 me-1"> Fire </span><span class="type-flying d-flex ms-1 pe-3 ps-3 me-1"> Flying </span></span></span></li>
+        </ul>
+            <div class="max-height card-body">
+                <span class="d-flex">
+                    <span class="d-flex"><b>About:</b></span>
+                    <span class="d-flex ms-3">It spits fire that is hot enough to melt
+boulders. It may cause forest fires by
+blowing flames.</span>
+                </span>
+        </div>
+        </div></div>
+        </button>
+        
+    <button onclick="renderModal(6)" class="btn-none bg-transparent" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="p-2 bg-transparent"><div class="card" style="width: 18rem;" id="test">
+        <div class="d-flex flex-grow-1 justify-content-end me-3"><span class="pokemon-id">#7</span></div>
+        <img class="pokemon-portrait" src="./#_files/7.png" loading="lazy">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title d-flex"><b>Squirtle</b></h5>
+          <img id="liked-squirtle" onclick="setLiked(6)" class="favorite d-flex" src="./#_files/favorite-3-16.png">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="d-flex justify-content-between"><span class="d-flex me-3"><b>Type:</b></span><span class="d-flex flex-grow-1 justify-content-end" id="type-squirtle"><span class="type-water d-flex ms-1 pe-3 ps-3 me-1"> Water </span></span></span></li>
+        </ul>
+            <div class="max-height card-body">
+                <span class="d-flex">
+                    <span class="d-flex"><b>About:</b></span>
+                    <span class="d-flex ms-3">After birth, its back swells and hardens
+into a shell. It powerfully sprays foam 
+from its mouth.</span>
+                </span>
+        </div>
+        </div></div>
+        </button>
+        
+    <button onclick="renderModal(7)" class="btn-none bg-transparent" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="p-2 bg-transparent"><div class="card" style="width: 18rem;" id="test">
+        <div class="d-flex flex-grow-1 justify-content-end me-3"><span class="pokemon-id">#8</span></div>
+        <img class="pokemon-portrait" src="./#_files/8.png" loading="lazy">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title d-flex"><b>Wartortle</b></h5>
+          <img id="liked-wartortle" onclick="setLiked(7)" class="favorite d-flex" src="./#_files/favorite-3-16.png">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="d-flex justify-content-between"><span class="d-flex me-3"><b>Type:</b></span><span class="d-flex flex-grow-1 justify-content-end" id="type-wartortle"><span class="type-water d-flex ms-1 pe-3 ps-3 me-1"> Water </span></span></span></li>
+        </ul>
+            <div class="max-height card-body">
+                <span class="d-flex">
+                    <span class="d-flex"><b>About:</b></span>
+                    <span class="d-flex ms-3">It often hides in water to stalk unwary
+prey. For fast swimming, it moves its
+ears to maintain balance.</span>
+                </span>
+        </div>
+        </div></div>
+        </button>
+        
+    <button onclick="renderModal(8)" class="btn-none bg-transparent" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="p-2 bg-transparent"><div class="card" style="width: 18rem;" id="test">
+        <div class="d-flex flex-grow-1 justify-content-end me-3"><span class="pokemon-id">#9</span></div>
+        <img class="pokemon-portrait" src="./#_files/9.png" loading="lazy">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title d-flex"><b>Blastoise</b></h5>
+          <img id="liked-blastoise" onclick="setLiked(8)" class="favorite d-flex" src="./#_files/favorite-3-16.png">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="d-flex justify-content-between"><span class="d-flex me-3"><b>Type:</b></span><span class="d-flex flex-grow-1 justify-content-end" id="type-blastoise"><span class="type-water d-flex ms-1 pe-3 ps-3 me-1"> Water </span></span></span></li>
+        </ul>
+            <div class="max-height card-body">
+                <span class="d-flex">
+                    <span class="d-flex"><b>About:</b></span>
+                    <span class="d-flex ms-3">The pressurized water jets on this brutal
+POKéMON’s shell are used for high-
+speed tackles.</span>
+                </span>
+        </div>
+        </div></div>
+        </button>
+        
+    <button onclick="renderModal(9)" class="btn-none bg-transparent" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="p-2 bg-transparent"><div class="card" style="width: 18rem;" id="test">
+        <div class="d-flex flex-grow-1 justify-content-end me-3"><span class="pokemon-id">#10</span></div>
+        <img class="pokemon-portrait" src="./#_files/10.png" loading="lazy">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title d-flex"><b>Caterpie</b></h5>
+          <img id="liked-caterpie" onclick="setLiked(9)" class="favorite d-flex" src="./#_files/favorite-3-16.png">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="d-flex justify-content-between"><span class="d-flex me-3"><b>Type:</b></span><span class="d-flex flex-grow-1 justify-content-end" id="type-caterpie"><span class="type-bug d-flex ms-1 pe-3 ps-3 me-1"> Bug </span></span></span></li>
+        </ul>
+            <div class="max-height card-body">
+                <span class="d-flex">
+                    <span class="d-flex"><b>About:</b></span>
+                    <span class="d-flex ms-3">Its voracious appetite compels it to
+devour leaves bigger than itself without
+hesitation. It releases a terribly strong
+odor from its antennae.</span>
+                </span>
+        </div>
+        </div></div>
+        </button>
+        
+    <button onclick="renderModal(10)" class="btn-none bg-transparent" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="p-2 bg-transparent"><div class="card" style="width: 18rem;" id="test">
+        <div class="d-flex flex-grow-1 justify-content-end me-3"><span class="pokemon-id">#11</span></div>
+        <img class="pokemon-portrait" src="./#_files/11.png" loading="lazy">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title d-flex"><b>Metapod</b></h5>
+          <img id="liked-metapod" onclick="setLiked(10)" class="favorite d-flex" src="./#_files/favorite-3-16.png">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="d-flex justify-content-between"><span class="d-flex me-3"><b>Type:</b></span><span class="d-flex flex-grow-1 justify-content-end" id="type-metapod"><span class="type-bug d-flex ms-1 pe-3 ps-3 me-1"> Bug </span></span></span></li>
+        </ul>
+            <div class="max-height card-body">
+                <span class="d-flex">
+                    <span class="d-flex"><b>About:</b></span>
+                    <span class="d-flex ms-3">This POKéMON is vulnerable to attack
+while its shell is soft, exposing its weak
+and tender body.</span>
+                </span>
+        </div>
+        </div></div>
+        </button>
+        
+    <button onclick="renderModal(11)" class="btn-none bg-transparent" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="p-2 bg-transparent"><div class="card" style="width: 18rem;" id="test">
+        <div class="d-flex flex-grow-1 justify-content-end me-3"><span class="pokemon-id">#12</span></div>
+        <img class="pokemon-portrait" src="./#_files/12.png" loading="lazy">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title d-flex"><b>Butterfree</b></h5>
+          <img id="liked-butterfree" onclick="setLiked(11)" class="favorite d-flex" src="./#_files/favorite-3-16.png">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="d-flex justify-content-between"><span class="d-flex me-3"><b>Type:</b></span><span class="d-flex flex-grow-1 justify-content-end" id="type-butterfree"><span class="type-bug d-flex ms-1 pe-3 ps-3 me-1"> Bug </span><span class="type-flying d-flex ms-1 pe-3 ps-3 me-1"> Flying </span></span></span></li>
+        </ul>
+            <div class="max-height card-body">
+                <span class="d-flex">
+                    <span class="d-flex"><b>About:</b></span>
+                    <span class="d-flex ms-3">In battle, it flaps its wings at great
+speed to release highly toxic dust into
+the air.</span>
+                </span>
+        </div>
+        </div></div>
+        </button>
+        
+    <button onclick="renderModal(12)" class="btn-none bg-transparent" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="p-2 bg-transparent"><div class="card" style="width: 18rem;" id="test">
+        <div class="d-flex flex-grow-1 justify-content-end me-3"><span class="pokemon-id">#13</span></div>
+        <img class="pokemon-portrait" src="./#_files/13.png" loading="lazy">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title d-flex"><b>Weedle</b></h5>
+          <img id="liked-weedle" onclick="setLiked(12)" class="favorite d-flex" src="./#_files/favorite-3-16.png">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="d-flex justify-content-between"><span class="d-flex me-3"><b>Type:</b></span><span class="d-flex flex-grow-1 justify-content-end" id="type-weedle"><span class="type-bug d-flex ms-1 pe-3 ps-3 me-1"> Bug </span><span class="type-poison d-flex ms-1 pe-3 ps-3 me-1"> Poison </span></span></span></li>
+        </ul>
+            <div class="max-height card-body">
+                <span class="d-flex">
+                    <span class="d-flex"><b>About:</b></span>
+                    <span class="d-flex ms-3">Often found in forests, eating leaves.
+It has a sharp stinger on its head that
+injects poison.</span>
+                </span>
+        </div>
+        </div></div>
+        </button>
+        
+    <button onclick="renderModal(13)" class="btn-none bg-transparent" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="p-2 bg-transparent"><div class="card" style="width: 18rem;" id="test">
+        <div class="d-flex flex-grow-1 justify-content-end me-3"><span class="pokemon-id">#14</span></div>
+        <img class="pokemon-portrait" src="./#_files/14.png" loading="lazy">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title d-flex"><b>Kakuna</b></h5>
+          <img id="liked-kakuna" onclick="setLiked(13)" class="favorite d-flex" src="./#_files/favorite-3-16.png">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="d-flex justify-content-between"><span class="d-flex me-3"><b>Type:</b></span><span class="d-flex flex-grow-1 justify-content-end" id="type-kakuna"><span class="type-bug d-flex ms-1 pe-3 ps-3 me-1"> Bug </span><span class="type-poison d-flex ms-1 pe-3 ps-3 me-1"> Poison </span></span></span></li>
+        </ul>
+            <div class="max-height card-body">
+                <span class="d-flex">
+                    <span class="d-flex"><b>About:</b></span>
+                    <span class="d-flex ms-3">Almost incapable of moving, this POKéMON
+can only harden its shell to protect
+itself when it is in danger.</span>
+                </span>
+        </div>
+        </div></div>
+        </button>
+        
+    <button onclick="renderModal(14)" class="btn-none bg-transparent" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="p-2 bg-transparent"><div class="card" style="width: 18rem;" id="test">
+        <div class="d-flex flex-grow-1 justify-content-end me-3"><span class="pokemon-id">#15</span></div>
+        <img class="pokemon-portrait" src="./#_files/15.png" loading="lazy">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title d-flex"><b>Beedrill</b></h5>
+          <img id="liked-beedrill" onclick="setLiked(14)" class="favorite d-flex" src="./#_files/favorite-3-16.png">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="d-flex justify-content-between"><span class="d-flex me-3"><b>Type:</b></span><span class="d-flex flex-grow-1 justify-content-end" id="type-beedrill"><span class="type-bug d-flex ms-1 pe-3 ps-3 me-1"> Bug </span><span class="type-poison d-flex ms-1 pe-3 ps-3 me-1"> Poison </span></span></span></li>
+        </ul>
+            <div class="max-height card-body">
+                <span class="d-flex">
+                    <span class="d-flex"><b>About:</b></span>
+                    <span class="d-flex ms-3">May appear in a swarm. Flies at violent
+speeds, all the while stabbing with the
+toxic stinger on its rear.</span>
+                </span>
+        </div>
+        </div></div>
+        </button>
+        
+    <button onclick="renderModal(15)" class="btn-none bg-transparent" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="p-2 bg-transparent"><div class="card" style="width: 18rem;" id="test">
+        <div class="d-flex flex-grow-1 justify-content-end me-3"><span class="pokemon-id">#16</span></div>
+        <img class="pokemon-portrait" src="./#_files/16.png" loading="lazy">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title d-flex"><b>Pidgey</b></h5>
+          <img id="liked-pidgey" onclick="setLiked(15)" class="favorite d-flex" src="./#_files/favorite-3-16.png">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="d-flex justify-content-between"><span class="d-flex me-3"><b>Type:</b></span><span class="d-flex flex-grow-1 justify-content-end" id="type-pidgey"><span class="type-normal d-flex ms-1 pe-3 ps-3 me-1"> Normal </span><span class="type-flying d-flex ms-1 pe-3 ps-3 me-1"> Flying </span></span></span></li>
+        </ul>
+            <div class="max-height card-body">
+                <span class="d-flex">
+                    <span class="d-flex"><b>About:</b></span>
+                    <span class="d-flex ms-3">A common sight in forests and woods.
+It flaps its wings at ground level to kick
+up blinding sand.</span>
+                </span>
+        </div>
+        </div></div>
+        </button>
+        
+    <button onclick="renderModal(16)" class="btn-none bg-transparent" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="p-2 bg-transparent"><div class="card" style="width: 18rem;" id="test">
+        <div class="d-flex flex-grow-1 justify-content-end me-3"><span class="pokemon-id">#17</span></div>
+        <img class="pokemon-portrait" src="./#_files/17.png" loading="lazy">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title d-flex"><b>Pidgeotto</b></h5>
+          <img id="liked-pidgeotto" onclick="setLiked(16)" class="favorite d-flex" src="./#_files/favorite-3-16.png">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="d-flex justify-content-between"><span class="d-flex me-3"><b>Type:</b></span><span class="d-flex flex-grow-1 justify-content-end" id="type-pidgeotto"><span class="type-normal d-flex ms-1 pe-3 ps-3 me-1"> Normal </span><span class="type-flying d-flex ms-1 pe-3 ps-3 me-1"> Flying </span></span></span></li>
+        </ul>
+            <div class="max-height card-body">
+                <span class="d-flex">
+                    <span class="d-flex"><b>About:</b></span>
+                    <span class="d-flex ms-3">Very protective of its sprawling
+territorial area, this POKéMON will
+fiercely peck at any intruder.</span>
+                </span>
+        </div>
+        </div></div>
+        </button>
+        
+    <button onclick="renderModal(17)" class="btn-none bg-transparent" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="p-2 bg-transparent"><div class="card" style="width: 18rem;" id="test">
+        <div class="d-flex flex-grow-1 justify-content-end me-3"><span class="pokemon-id">#18</span></div>
+        <img class="pokemon-portrait" src="./#_files/18.png" loading="lazy">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title d-flex"><b>Pidgeot</b></h5>
+          <img id="liked-pidgeot" onclick="setLiked(17)" class="favorite d-flex" src="./#_files/favorite-3-16.png">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="d-flex justify-content-between"><span class="d-flex me-3"><b>Type:</b></span><span class="d-flex flex-grow-1 justify-content-end" id="type-pidgeot"><span class="type-normal d-flex ms-1 pe-3 ps-3 me-1"> Normal </span><span class="type-flying d-flex ms-1 pe-3 ps-3 me-1"> Flying </span></span></span></li>
+        </ul>
+            <div class="max-height card-body">
+                <span class="d-flex">
+                    <span class="d-flex"><b>About:</b></span>
+                    <span class="d-flex ms-3">When hunting, it skims the surface of
+water at high speed to pick off unwary
+prey such as MAGIKARP.</span>
+                </span>
+        </div>
+        </div></div>
+        </button>
+        
+    <button onclick="renderModal(18)" class="btn-none bg-transparent" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="p-2 bg-transparent"><div class="card" style="width: 18rem;" id="test">
+        <div class="d-flex flex-grow-1 justify-content-end me-3"><span class="pokemon-id">#19</span></div>
+        <img class="pokemon-portrait" src="./#_files/19.png" loading="lazy">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title d-flex"><b>Rattata</b></h5>
+          <img id="liked-rattata" onclick="setLiked(18)" class="favorite d-flex" src="./#_files/favorite-3-16.png">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="d-flex justify-content-between"><span class="d-flex me-3"><b>Type:</b></span><span class="d-flex flex-grow-1 justify-content-end" id="type-rattata"><span class="type-normal d-flex ms-1 pe-3 ps-3 me-1"> Normal </span></span></span></li>
+        </ul>
+            <div class="max-height card-body">
+                <span class="d-flex">
+                    <span class="d-flex"><b>About:</b></span>
+                    <span class="d-flex ms-3">Its fangs are long and very sharp.
+They grow continuously, so it gnaws on
+hard things to whittle them down.</span>
+                </span>
+        </div>
+        </div></div>
+        </button>
+        
+    <button onclick="renderModal(19)" class="btn-none bg-transparent" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="p-2 bg-transparent"><div class="card" style="width: 18rem;" id="test">
+        <div class="d-flex flex-grow-1 justify-content-end me-3"><span class="pokemon-id">#20</span></div>
+        <img class="pokemon-portrait" src="./#_files/20.png" loading="lazy">
+        <div class="card-body d-flex justify-content-between">
+          <h5 class="card-title d-flex"><b>Raticate</b></h5>
+          <img id="liked-raticate" onclick="setLiked(19)" class="favorite d-flex" src="./#_files/favorite-3-16.png">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="d-flex justify-content-between"><span class="d-flex me-3"><b>Type:</b></span><span class="d-flex flex-grow-1 justify-content-end" id="type-raticate"><span class="type-normal d-flex ms-1 pe-3 ps-3 me-1"> Normal </span></span></span></li>
+        </ul>
+            <div class="max-height card-body">
+                <span class="d-flex">
+                    <span class="d-flex"><b>About:</b></span>
+                    <span class="d-flex ms-3">Its rear feet have three toes each.
+They are webbed, enabling it to swim
+across rivers.</span>
+                </span>
+        </div>
+        </div></div>
+        </button>
+        </div>
+  </div>
+  <script src="./#_files/script.js.Download"></script>
+
+<!-- Code injected by live-server -->
+<script type="text/javascript">
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+<div class="modal-backdrop fade show"></div></body><loom-container id="lo-engage-ext-container"><loom-shadow classname="resolved"></loom-shadow></loom-container><loom-container id="lo-companion-container"><loom-shadow classname="resolved"></loom-shadow></loom-container></html>
